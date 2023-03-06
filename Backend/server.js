@@ -2,28 +2,31 @@ const express = require("express");
 
 const app = express();
 const PORT = 5000;
-//this will allow us to use environment variable
+
+//@Storing environment variable
 const dotenv = require("dotenv").config;
 dotenv();
 
-// this is how you import function
+//@Importing Function
 const connectDb = require("./config/db.js");
 
-//This will help us to log json data from endpoint
 app.use(express.urlencoded({ extended: false }));
-
 const User = require("./models/userModel.js");
 
+//@Connecting to MongoDb🥭
+connectDb();
 //@root api
 app.post("/", async (req, res) => {
-  const { name, email } = req.body;
+  const { name, email, password } = await req.body;
   const newUser = await User.create({
     name,
     email,
-    passwod: "asdasd",
+    password,
   });
+
   res.send("done");
+  console.log(newUser);
 });
 
-//this .listen will start the application
-app.listen(PORT, () => console.log("server finished starting"));
+//@App run 😎
+app.listen(PORT, () => console.log("Built done"));

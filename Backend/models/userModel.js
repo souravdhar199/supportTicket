@@ -1,5 +1,6 @@
-//@Making Schema for users which will stor user name passward etc.
+//@Making Schema for users 🙂
 const mongoose = require("mongoose");
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -21,5 +22,5 @@ const userSchema = mongoose.Schema(
   }
 );
 
-//@Exporting the Schema ~ mongoose.Model(Name of the model, Created Schema)
+//@Exporting the Schema 😎
 module.exports = mongoose.model("User", userSchema);
