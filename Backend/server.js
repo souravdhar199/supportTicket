@@ -18,14 +18,25 @@ connectDb();
 //@root api
 app.post("/", async (req, res) => {
   const { name, email, password } = await req.body;
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-  });
 
-  res.send("done");
-  console.log(newUser);
+  //If we already have the user 👥
+
+  const userExist = await User.findOne({ email });
+
+  if (userExist) {
+    res.send("You are already in the system 😎");
+  } else {
+    try {
+      const newUser = await User.create({
+        name,
+        email,
+        password,
+      });
+      res.send("Successfully created 😊");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 //@App run 😎
