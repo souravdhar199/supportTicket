@@ -15,12 +15,12 @@ const User = require("./models/userModel.js");
 
 //@Connecting to MongoDb🥭
 connectDb();
-//@root api
+
+//@root end point
 app.post("/", async (req, res) => {
   const { name, email, password } = await req.body;
 
   //If we already have the user 👥
-
   const userExist = await User.findOne({ email });
 
   if (userExist) {
@@ -35,6 +35,29 @@ app.post("/", async (req, res) => {
       res.send("Successfully created 😊");
     } catch (error) {
       console.log(error);
+    }
+  }
+});
+
+//@Login end point
+
+/*
+  findOne() => finds instances based on the passing argument in MongoDb
+*/
+
+//@Log in
+app.post("/login", async (req, res) => {
+  const { email, password } = await req.body;
+
+  const userExist = await User.findOne({ email });
+  console.log(userExist);
+  if (!userExist) {
+    res.send("Looks like you are not in the system yet 🙂");
+  } else {
+    if (userExist.password !== password) {
+      res.send("Wrong cardential 🎃");
+    } else {
+      res.send("You Logged in 👌");
     }
   }
 });
