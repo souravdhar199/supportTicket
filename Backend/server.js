@@ -16,6 +16,13 @@ const User = require("./models/userModel.js");
 //@Connecting to MongoDb🥭
 connectDb();
 
+//@Json-Web Token
+const jsonToken = require("jsonwebtoken");
+
+const gererateToken = (id) => {
+  return jsonToken.sign({ id }, process.env.SECRET_KEY);
+};
+
 //@root end point
 app.post("/", async (req, res) => {
   const { name, email, password } = await req.body;
@@ -32,7 +39,12 @@ app.post("/", async (req, res) => {
         email,
         password,
       });
-      res.send("Successfully created 😊");
+      res.status(201).json({
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        token: gererateToken(newUser._id),
+      });
     } catch (error) {
       console.log(error);
     }
