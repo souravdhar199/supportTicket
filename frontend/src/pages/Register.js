@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 export default function Register() {
   //Stores all the form data
   const [formData, setFromdata] = new useState({
@@ -14,7 +15,9 @@ export default function Register() {
   // This function will take care of form subsmission
   const onSubmits = (e) => {
     e.preventDefault();
-    console.log("form got submitted");
+    if (Password !== Password2) {
+      toast.error("Passward Did not Match");
+    }
   };
 
   return (
