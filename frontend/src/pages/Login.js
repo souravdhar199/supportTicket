@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { login } from "../features/auth/authUser";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
   const [formData, setFromdata] = new useState({
@@ -7,11 +9,14 @@ export default function Login() {
     Email: "",
   });
 
+  const dispatch = useDispatch();
+
   const { Password, Email } = formData;
 
   // This function will take care of form subsmission
   const onSubmits = (e) => {
     e.preventDefault();
+    dispatch(login(formData));
   };
 
   return (
