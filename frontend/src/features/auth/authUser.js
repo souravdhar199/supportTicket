@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // this will be initial State in the redux
 const initialState = {
-  user: "Sourav",
+  user: "",
   isError: false,
   isSuccess: false,
   isLoading: false,
   messege: "",
 };
-//Registering User
+//Registering User -- This is an Action
 export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
@@ -16,16 +16,18 @@ export const register = createAsyncThunk(
   }
 );
 
-//Login User
+//Login User -- This is an Action
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   console.log(user);
 });
 
-// This will crate a state
+//authUser is a reducer
 export const authUser = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {},
+  name: "auth", // name of the reducer
+  initialState, //takes the initial state
+  reducers: {
+    initialState: register,
+  },
   extraReducers: (builder) => {},
 });
 
