@@ -23,8 +23,8 @@ const gererateToken = (id) => {
   return jsonToken.sign({ id }, process.env.SECRET_KEY);
 };
 
-//@root end point
-app.post("/", async (req, res) => {
+//@Register Endpoint
+app.post("/register", async (req, res) => {
   const { name, email, password } = await req.body;
 
   //If we already have the user 👥
@@ -51,13 +51,10 @@ app.post("/", async (req, res) => {
   }
 });
 
-//@Login end point
-
 /*
   findOne() => finds instances based on the passing argument in MongoDb
 */
-
-//@Log in
+//@Login end point
 app.post("/login", async (req, res) => {
   const { email, password } = await req.body;
 
